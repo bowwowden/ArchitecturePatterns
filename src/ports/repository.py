@@ -16,5 +16,5 @@ class AbstractRepository(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def destroy(self, item):
+    def delete(self, item):
         pass

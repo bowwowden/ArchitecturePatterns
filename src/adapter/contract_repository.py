@@ -12,12 +12,14 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def create(self, contract):
         self.session.add(contract)
+        self.session.commit()
 
     def read(self, contract_id: int):
-        self.session.query(Contract).filter_by(contract_id=contract_id).one()
+        return self.session.query(Contract).filter_by(contract_id=contract_id).first()
 
     def update(self, contract):
         pass
 
-    def destroy(self, contract):
-        pass
+    def delete(self, contract_id):
+        self.session.query(Contract).filter_by(contract_id=contract_id).delete()
+        self.session.commit()
