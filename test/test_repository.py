@@ -47,6 +47,16 @@ class MyTestCase(unittest.TestCase):
 
         assert self.repo.read(contract_id=1) is None
 
+    def test_update_contract(self):
+        contract: Contract = Contract(owner_email="william@gmail.com", owner_id=1, contract_id=1)
+
+        self.repo.create(contract)
+        self.repo.update(contract)
+        new_contract: Contract = Contract(owner_email="williamfbff@gmail.com", owner_id=1, contract_id=1)
+
+        old = self.repo.read(contract_id=1)
+        self.assertNotEqual(old, new_contract)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -18,7 +18,12 @@ class SqlAlchemyRepository(AbstractRepository):
         return self.session.query(Contract).filter_by(contract_id=contract_id).first()
 
     def update(self, contract):
-        pass
+        contract_id = contract.contract_id
+        updated_contract = self.session.query(Contract).filter_by(contract_id=contract_id).one()
+        # mapper for updating the contract
+        updated_contract.owner_email = contract.owner_email
+        updated_contract.owner_id = contract.owner_id
+        self.session.commit()
 
     def delete(self, contract_id):
         self.session.query(Contract).filter_by(contract_id=contract_id).delete()
