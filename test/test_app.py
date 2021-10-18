@@ -4,8 +4,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 
 from src.adapter.contract_repository import SqlAlchemyRepository
+from src.app import App
 from src.model import Contract
-from src.orm import start_mappers, metadata
+from src.orm import metadata, start_mappers
 from src.ports.repository import AbstractRepository
 
 
@@ -21,57 +22,37 @@ class MyTestCase(unittest.TestCase):
 
         self.repo: AbstractRepository() = SqlAlchemyRepository(self.session)
 
+        # Initialize application using dependency injection
+        self.app: App = App(self.repo)
+
         # mappers
         start_mappers()
 
     def tearDown(self) -> None:
-        clear_mappers()
         metadata.drop_all(self.engine)
+        # Wipe all mapped classes between tests
+        clear_mappers()
 
-    def test_create_contract(self):
-
+    def test_insert_contract_to_repo(self):
         contract: Contract = Contract(owner_email="william@gmail.com", owner_id=1, contract_id=1)
 
-        self.repo.create(contract)
+        self.app.insert_contract(contract)
 
         print("Contract was created")
-        print(self.repo.read(contract_id=1))
+        print(self.app.find_contract_by_id(contract_id=1))
 
-        self.assertEqual(self.repo.read(contract_id=1), contract)
+        self.assertEqual(self.app.find_contract_by_id(contract_id=1), contract)
 
-    def test_create_multiple_contracts(self):
+    def test_insert_a_list_of_contracts_to_repo(self):
         contract1 = Contract(owner_email="william@gmail.com", owner_id=1, contract_id=1)
         contract2 = Contract(owner_email="frank@gmail.com", owner_id=1, contract_id=2)
         contract3 = Contract(owner_email="bob@gmail.com", owner_id=1, contract_id=3)
 
         contracts: list = [contract1, contract2, contract3]
         for contract in contracts:
-            self.repo.create(contract)
+            self.app.insert_contract(contract)
 
-        print("Number of Contracts in the SQL Table " + str(self.repo.count()))
+        print("Contract was created")
+        print(self.app.find_contract_by_id(contract_id=1))
 
-        self.assertEqual(self.repo.count(), 3)
-
-    def test_delete_contract(self):
-        contract: Contract = Contract(owner_email="william@gmail.com", owner_id=1, contract_id=1)
-
-        self.repo.create(contract)
-
-        self.repo.delete(contract_id=1)
-
-        assert self.repo.read(contract_id=1) is None
-
-    def test_update_contract(self):
-        contract: Contract = Contract(owner_email="william@gmail.com", owner_id=1, contract_id=1)
-        self.repo.create(contract)
-
-        self.assertEqual(self.repo.read(contract_id=1), contract)
-
-        new_contract: Contract = Contract(owner_email="williamfbff@gmail.com", owner_id=1, contract_id=1)
-        self.repo.update(new_contract)
-
-        self.assertEqual(self.repo.read(contract_id=1), new_contract)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        self.assertEqual(self.app.contractsRepo.count(), 3)

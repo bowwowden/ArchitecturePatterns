@@ -11,3 +11,4 @@ Adapters are the implementation that is behind the interface. Generally, if ther
 
 It is the central tenet of most good design patterns to decouple classes as much as possible. Dependency inversion makes the repository pattern possible. 
 In this example, SqlAlchemy adapts the AbstractRepository for simple CRUD behavior. 
+

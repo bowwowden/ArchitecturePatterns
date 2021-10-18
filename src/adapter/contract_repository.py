@@ -28,3 +28,6 @@ class SqlAlchemyRepository(AbstractRepository):
     def delete(self, contract_id):
         self.session.query(Contract).filter_by(contract_id=contract_id).delete()
         self.session.commit()
+
+    def count(self):
+        return self.session.query(Contract).count()
