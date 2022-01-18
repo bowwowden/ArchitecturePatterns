@@ -8,5 +8,7 @@ It uses a function determine_actions(), to create a list of actions from three g
 It yields information about the side lengths, if it's a triangle and if the triangle is isosceles, scalene, or equilateral.
 
 Read more: 
-https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell
-https://github.com/cosmicpython/book/blob/master/chapter_03_abstractions.asciidoc
+
+- https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell
+
+- https://github.com/cosmicpython/book/blob/master/chapter_03_abstractions.asciidoc
