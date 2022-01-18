@@ -4,8 +4,7 @@ This project is meant as a collection of notes on different architecture pattern
 ## Abstracting With An Imperative Shell
 
 This branch is a small study in using a function to abstract away the business logic as a functional core.
-
-The determine_actions() function creates a list of actions from three given lengths.
+It uses a function determine_actions(), to create a list of actions from three given lengths.
 It yields information about the side lengths, if it's a triangle and if the triangle is isosceles, scalene, or equilateral.
 
 Read more: 
