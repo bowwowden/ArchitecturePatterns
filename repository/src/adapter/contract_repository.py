@@ -1,8 +1,8 @@
 # Adapter
 from sqlalchemy.orm import Session
 
-from src.model import Contract
-from src.ports.repository import AbstractRepository
+from repository.src.model import Contract
+from repository.src.ports.repository import AbstractRepository
 
 
 class SqlAlchemyRepository(AbstractRepository):

@@ -3,11 +3,11 @@ import unittest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 
-from src.adapter.contract_repository import SqlAlchemyRepository
-from src.app import App
-from src.model import Contract
-from src.orm import metadata, start_mappers
-from src.ports.repository import AbstractRepository
+from repository.src.adapter.contract_repository import SqlAlchemyRepository
+from repository.src.app import App
+from repository.src.model import Contract
+from repository.src.orm import metadata, start_mappers
+from repository.src.ports.repository import AbstractRepository
 
 
 class MyTestCase(unittest.TestCase):

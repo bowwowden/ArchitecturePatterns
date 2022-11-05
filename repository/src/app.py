@@ -1,5 +1,5 @@
-from src.adapter.contract_repository import SqlAlchemyRepository
-from src.model import Contract
+from repository.src.adapter.contract_repository import SqlAlchemyRepository
+from repository.src.model import Contract
 
 
 class App:

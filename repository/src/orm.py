@@ -1,9 +1,9 @@
 # This class is essential to mapping the model to the ORM
 # Invert the model from the SQL Alchemy model
 from sqlalchemy import MetaData, Table, Column, Integer, String
-from sqlalchemy.orm import mapper, relationship
+from sqlalchemy.orm import mapper
 
-from src.model import Contract
+from repository.src.model import Contract
 
 metadata = MetaData()
 
