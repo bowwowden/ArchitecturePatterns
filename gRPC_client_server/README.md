@@ -1,17 +1,35 @@
 
 # gRPC Client/Server over mTLS
 
+Needed to learn gRPC for work on capstone.
 gRPC (Google Remote Procedure Call) is a new protocol for sending structured data
 over the mTLS. 
-Quick reminder: mTLS is a two-way handshake. 
-Generate a CA certificate and a CA key.
+
+### gRPC ###
+
+Define formats in *.proto files that contain the structure of what data can be sent.
+These protobuf files consist of messages, which are data formats,
+and services, that can run code.
+
+```protobuf
+message Person {
+  required string name = 1;
+}
+
+service Contacts {
+  rpc sayHello(Person) returns (HelloResponse) {};
+}
+```
+
+Quick reminder: mTLS is a two-way handshake.
+
 Define an IDL (Interface Definition Language)
 - https://developers.google.com/protocol-buffers/docs/proto3
-
 
 Nice writeup from someone here that helped me with generating keys
 - https://www.handracs.info/blog/grpcmtlsgo/
 
+Generate a CA certificate and a CA key.
 I did all these bash commands to generate client/server keys 
 and to define a certificate.
 
