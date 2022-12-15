@@ -11,6 +11,23 @@ Define formats in *.proto files that contain the structure of what data can be s
 These protobuf files consist of messages, which are data formats,
 and services, that can run code.
 
+### Python Requirements
+```shell    
+$ pip install grpcio
+$ pip install grpcio-tools
+$ python -m grpc_tools.protoc -Iproto --python_out=pb proto/demo.proto 
+```
+
+this generates hello_world_pb2_grpc.py
+python -m grpc_tools.protoc -Iproto --python_out=. --pyi_out=. --grpc_python_out=. proto/hello_world.proto 
+
+testing
+https://grpc.github.io/grpc/python/grpc_testing.html
+```shell
+pip install grpcio-testing
+```
+
+
 ```protobuf
 message Person {
   required string name = 1;
@@ -23,15 +40,11 @@ service Contacts {
 
 Quick reminder: mTLS is a two-way handshake.
 
-Define an IDL (Interface Definition Language)
-- https://developers.google.com/protocol-buffers/docs/proto3
-
-Nice writeup from someone here that helped me with generating keys
-- https://www.handracs.info/blog/grpcmtlsgo/
 
 Generate a CA certificate and a CA key.
 I did all these bash commands to generate client/server keys 
 and to define a certificate.
+
 
 ```
 $ openssl ecparam -name prime256v1 -genkey -noout -out cakey.key
@@ -46,5 +59,16 @@ $ openssl req -new -key client.key -out client.csr -config csrclient.conf
 $ openssl x509 -req -in client.csr -CA cacert.pem -CAkey cakey.key -CAcreateserial -out client.pem -days 90 -extfile csrclient.conf -extensions req_ext
 ```
 
+Simplest reference for gRPC
+- https://grpc.io/docs/languages/python/quickstart/
+
+Define an IDL (Interface Definition Language)
+- https://developers.google.com/protocol-buffers/docs/proto3
+
+Nice writeup from someone here that helped me with generating keys
+- https://www.handracs.info/blog/grpcmtlsgo/
+
+Super useful post, found a way to unit test using grpc test framework.
+- https://github.com/grpc/grpc/issues/17453
 
 
